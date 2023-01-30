@@ -1,0 +1,29 @@
+[center] {
+    display: flex;
+    justify-content: center;
+}
+
+tr {
+    border-width: 10px !important;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0 1em;
+    width: 60% !important;
+}
+
+.title {
+    margin: 4em;
+    display: flex;
+    
+}
+
+.btn {
+    width: 300px;
+}
+
+
+header {
+
+}
