@@ -55,5 +55,6 @@ public class ChasseurServiceImpl implements ChasseurService {
         if (pilote != null && !Objects.equals(chasseur.getPilote().getId(), pilote.getId())) {
             chasseur.setPilote(pilote);
         }
+
     }
 }
