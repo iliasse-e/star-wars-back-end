@@ -11,6 +11,8 @@ public interface ChasseurService {
     List<Chasseur> getChasseursDispo();
     List<Chasseur> getChasseursAvecPilotes();
 
+    List<Chasseur> getChasseursPretPourMission();
+
     void addNewChasseur(Chasseur chasseur);
 
     void deleteChasseur(Long chasseurId);

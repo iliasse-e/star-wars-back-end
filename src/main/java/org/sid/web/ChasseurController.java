@@ -33,6 +33,11 @@ public class ChasseurController {
         return chasseurService.getChasseursAvecPilotes();
     }
 
+    @GetMapping("/missions")
+    public List<Chasseur> getChasseursPretPourMission() {
+        return chasseurService.getChasseursPretPourMission();
+    }
+
     @PostMapping()
     public void registerNewChasseur(@RequestBody Chasseur chasseur) {
 	chasseurService.addNewChasseur(chasseur);
