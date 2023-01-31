@@ -27,6 +27,7 @@ public class AndriiDavidEveIliasseApplication {
 	    Chasseur chas4 = new Chasseur("T-70", TypeChasseur.XWING, EtatChasseur.MAINTENANCE);
 
 	    chasseurRepository.saveAll(List.of(chas1, chas2, chas3, chas4));
+	    System.out.println("Bonjour");
 	};
     }
 }
