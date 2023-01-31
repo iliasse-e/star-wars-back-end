@@ -3,17 +3,18 @@ package org.sid.services;
 import org.sid.entities.Chasseur;
 import org.sid.entities.Pilote;
 import org.sid.enums.EtatChasseur;
+import org.sid.exceptions.ChasseurNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 public interface ChasseurService {
-    List<Chasseur> getChasseurs();
+    List<Chasseur> listChasseurs();
 
-    void addNewChasseur(Chasseur chasseur);
+    void saveChasseur(Chasseur chasseur);
 
-    void deleteChasseur(Long chasseurId);
+    void deleteChasseur(Long chasseurId) throws ChasseurNotFoundException;
 
     @Transactional
-    void updateChasseur(Long chasseurId, EtatChasseur etatChasseur, Pilote pilote);
+    void updateChasseur(Long chasseurId, EtatChasseur etatChasseur, Pilote pilote) throws ChasseurNotFoundException;
 }

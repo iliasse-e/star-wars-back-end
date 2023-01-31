@@ -41,7 +41,7 @@ public class MissionRestControllerAPI {
 		return missionService.listMission();
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/missions/{id}")
 	public Mission get(@PathVariable("id") Long missionId) throws MissionNotFoundException {
 		return missionService.getMission(missionId);
 	}

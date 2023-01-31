@@ -4,6 +4,7 @@ import org.sid.dao.ChasseurRepository;
 import org.sid.entities.Chasseur;
 import org.sid.entities.Pilote;
 import org.sid.enums.EtatChasseur;
+import org.sid.exceptions.ChasseurNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,42 +17,42 @@ public class ChasseurServiceImpl implements ChasseurService {
     private final ChasseurRepository chasseurRepository;
 
     public ChasseurServiceImpl(ChasseurRepository chasseurRepository) {
-	this.chasseurRepository = chasseurRepository;
+        this.chasseurRepository = chasseurRepository;
     }
 
     @Override
-	public List<Chasseur> getChasseurs() {
-	return chasseurRepository.findAll();
+    public List<Chasseur> listChasseurs() {
+        return chasseurRepository.findAll();
     }
 
     @Override
-	public void addNewChasseur(Chasseur chasseur) {
-	Optional<Chasseur> chasseurOptional = chasseurRepository.findChasseurByName(chasseur.getName());
-	if (chasseurOptional.isPresent()) {
-	    throw new IllegalStateException("Ship is already in the database");
-	}
-	chasseurRepository.save(chasseur);
+    public void saveChasseur(Chasseur chasseur) {
+        Optional<Chasseur> chasseurOptional = chasseurRepository.findChasseurByName(chasseur.getName());
+        if (chasseurOptional.isPresent()) {
+            throw new IllegalStateException("Ship is already in the database");
+        }
+        chasseurRepository.save(chasseur);
     }
 
     @Override
-	public void deleteChasseur(Long chasseurId) {
-	if (chasseurRepository.findById(chasseurId).isEmpty()) {
-	    throw new IllegalStateException("No ship with this id found");
-	}
-	chasseurRepository.deleteById(chasseurId);
+    public void deleteChasseur(Long chasseurId) throws ChasseurNotFoundException {
+        if (chasseurRepository.findById(chasseurId).isEmpty()) {
+            throw new ChasseurNotFoundException("No ship with this id found");
+        }
+        chasseurRepository.deleteById(chasseurId);
     }
 
     @Override
-	@Transactional
-    public void updateChasseur(Long chasseurId, EtatChasseur etatChasseur, Pilote pilote) {
-	Chasseur chasseur = chasseurRepository.findById(chasseurId)
-		.orElseThrow(() -> new IllegalStateException("No ship with this id found"));
+    @Transactional
+    public void updateChasseur(Long chasseurId, EtatChasseur etatChasseur, Pilote pilote) throws ChasseurNotFoundException {
+        Chasseur chasseur = chasseurRepository.findById(chasseurId)
+                .orElseThrow(() -> new ChasseurNotFoundException("No ship with this id found"));
 
-	if (etatChasseur != null && chasseur.getEtatChasseur() != etatChasseur) {
-	    chasseur.setEtatChasseur(etatChasseur);
-	}
-	if (pilote != null && chasseur.getPilote().getId != pilote.getId) {
-	    chasseur.setPilote(pilote);
-	}
+        if (etatChasseur != null && chasseur.getEtatChasseur() != etatChasseur) {
+            chasseur.setEtatChasseur(etatChasseur);
+        }
+//        if (pilote != null && chasseur.getPilote().getId != pilote.getId) {
+//            chasseur.setPilote(pilote);
+//        }
     }
 }
