@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ChasseurServiceImpl implements ChasseurService {
@@ -26,6 +27,25 @@ public class ChasseurServiceImpl implements ChasseurService {
         return chasseurRepository.findAll();
     }
 
+    @Override
+    public List<Chasseur> getChasseurs() {
+        return null;
+    }
+
+    @Override
+	public List<Chasseur> getChasseursDispo() {
+		return (List<Chasseur>) chasseurRepository.findAll().stream().filter(chasseur -> chasseur.getDispo()).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Chasseur> getChasseursAvecPilotes() {
+		return (List<Chasseur>) chasseurRepository.findAll().stream().filter(chasseur -> chasseur.getPilote() != null).collect(Collectors.toList());
+	}
+
+	public List<Chasseur> getChasseursPretPourMission() {
+		List<Chasseur> chasseursDispos = chasseurRepository.findAll().stream().filter(chasseur -> chasseur.getDispo()).collect(Collectors.toList());
+		return chasseursDispos.stream().filter(chasseur -> chasseur.getPilote() != null).collect(Collectors.toList());
+	}
     @Override
     public void saveChasseur(Chasseur chasseur) {
         Optional<Chasseur> chasseurOptional = chasseurRepository.findChasseurByName(chasseur.getName());
@@ -57,4 +77,9 @@ public class ChasseurServiceImpl implements ChasseurService {
         }
 
     }
+
+   /* @Override
+    public void addNewChasseur(Chasseur chasseur) {
+
+    } /*
 }
