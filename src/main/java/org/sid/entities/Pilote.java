@@ -9,7 +9,7 @@ import org.sid.enums.Sante;
 import javax.persistence.*;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Table
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,7 +17,7 @@ public class Pilote extends Rebelle {
     @Id
     @SequenceGenerator(name = "pilote_generator", sequenceName = "pilote_generator", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "pilote_generator")
-    @Column(name = "id_pilote", updatable = false)
+    @Column(updatable = false)
     private Long id;
 
     @Column(nullable = false)
@@ -29,10 +29,12 @@ public class Pilote extends Rebelle {
     @Column(nullable = false)
     private Sante sante;
 
-    @OneToOne(mappedBy = "pilote")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_chasseur")
     private Chasseur chasseur;
 
     @ManyToOne
+    @JoinColumn(name = "id_mission")
     private Mission missionActuelle;
 
     /*public Pilote(

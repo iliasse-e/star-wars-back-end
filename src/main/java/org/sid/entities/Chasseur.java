@@ -37,7 +37,6 @@ public class Chasseur {
     private EtatChasseur etatChasseur;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_pilote")
     private Pilote pilote;
 
     public Chasseur() {
