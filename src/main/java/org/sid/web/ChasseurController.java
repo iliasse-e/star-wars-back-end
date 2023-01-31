@@ -23,6 +23,11 @@ public class ChasseurController {
 	return chasseurService.getChasseurs();
     }
 
+    @GetMapping("/dispos")
+    public List<Chasseur> getAllChasseursDispos() {
+        return chasseurService.getChasseursDispo();
+    }
+
     @PostMapping()
     public void registerNewChasseur(@RequestBody Chasseur chasseur) {
 	chasseurService.addNewChasseur(chasseur);

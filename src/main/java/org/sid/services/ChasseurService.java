@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface ChasseurService {
     List<Chasseur> getChasseurs();
+    List<Chasseur> getChasseursDispo();
 
     void addNewChasseur(Chasseur chasseur);
 

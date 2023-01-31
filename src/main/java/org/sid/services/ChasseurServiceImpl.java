@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ChasseurServiceImpl implements ChasseurService {
@@ -23,6 +24,11 @@ public class ChasseurServiceImpl implements ChasseurService {
 	public List<Chasseur> getChasseurs() {
 	return chasseurRepository.findAll();
     }
+
+	@Override
+	public List<Chasseur> getChasseursDispo() {
+		return (List<Chasseur>) chasseurRepository.findAll().stream().filter(chasseur -> chasseur.getDispo()).collect(Collectors.toList());
+	}
 
     @Override
 	public void addNewChasseur(Chasseur chasseur) {
