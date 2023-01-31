@@ -44,11 +44,11 @@ public class ChasseurService {
 	Chasseur chasseur = chasseurRepository.findById(chasseurId)
 		.orElseThrow(() -> new IllegalStateException("No ship with this id found"));
 
-	if (etatChasseur != null && chasseur.getEtatChasseur() != etatChasseur) {
+	/* if (etatChasseur != null && chasseur.getEtatChasseur() != etatChasseur) {
 	    chasseur.setEtatChasseur(etatChasseur);
 	}
 	if (pilote != null && chasseur.getPilote().getId != pilote.getId) {
 	    chasseur.setPilote(pilote);
-	}
+	} */
     }
 }
