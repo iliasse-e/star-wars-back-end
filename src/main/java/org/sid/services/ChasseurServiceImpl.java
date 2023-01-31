@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -51,8 +52,8 @@ public class ChasseurServiceImpl implements ChasseurService {
         if (etatChasseur != null && chasseur.getEtatChasseur() != etatChasseur) {
             chasseur.setEtatChasseur(etatChasseur);
         }
-//        if (pilote != null && chasseur.getPilote().getId != pilote.getId) {
-//            chasseur.setPilote(pilote);
-//        }
+        if (pilote != null && !Objects.equals(chasseur.getPilote().getId(), pilote.getId())) {
+            chasseur.setPilote(pilote);
+        }
     }
 }
