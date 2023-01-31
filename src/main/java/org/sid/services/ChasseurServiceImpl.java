@@ -30,6 +30,11 @@ public class ChasseurServiceImpl implements ChasseurService {
 		return (List<Chasseur>) chasseurRepository.findAll().stream().filter(chasseur -> chasseur.getDispo()).collect(Collectors.toList());
 	}
 
+	@Override
+	public List<Chasseur> getChasseursAvecPilotes() {
+		return (List<Chasseur>) chasseurRepository.findAll().stream().filter(chasseur -> chasseur.getPilote() != null).collect(Collectors.toList());
+	}
+
     @Override
 	public void addNewChasseur(Chasseur chasseur) {
 	Optional<Chasseur> chasseurOptional = chasseurRepository.findChasseurByName(chasseur.getName());

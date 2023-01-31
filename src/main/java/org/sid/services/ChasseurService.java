@@ -9,6 +9,7 @@ import java.util.List;
 public interface ChasseurService {
     List<Chasseur> getChasseurs();
     List<Chasseur> getChasseursDispo();
+    List<Chasseur> getChasseursAvecPilotes();
 
     void addNewChasseur(Chasseur chasseur);
 

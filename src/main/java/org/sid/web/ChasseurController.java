@@ -28,6 +28,11 @@ public class ChasseurController {
         return chasseurService.getChasseursDispo();
     }
 
+    @GetMapping("/pilotes")
+    public List<Chasseur> getChasseursAvecPilotes() {
+        return chasseurService.getChasseursAvecPilotes();
+    }
+
     @PostMapping()
     public void registerNewChasseur(@RequestBody Chasseur chasseur) {
 	chasseurService.addNewChasseur(chasseur);
