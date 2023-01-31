@@ -36,7 +36,7 @@ public class AndriiDavidEveIliasseApplication {
 			
 			missionService.saveMission(new Mission());
 			missionService.endMission(1L);
-			piloteService.savePilote(new Pilote());
+			// piloteService.savePilote(new Pilote());
 
 			Chasseur chas1 = new Chasseur("Luke's Fighter", TypeChasseur.XWING, EtatChasseur.OPERATIONNEL);
 			Chasseur chas2 = new Chasseur("Red Five", TypeChasseur.XWING, EtatChasseur.OPERATIONNEL);
