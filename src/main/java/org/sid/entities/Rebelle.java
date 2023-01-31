@@ -2,32 +2,72 @@ package org.sid.entities;
 
 import org.sid.enums.Race;
 
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "TYPE",length = 4)
-@DiscriminatorValue("RE")
-@Data @AllArgsConstructor @NoArgsConstructor
+@Table
 public class Rebelle {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "rebelle_generator", sequenceName = "rebelle_generator", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "rebelle_generator")
+	@Column(name = "id_rebelle", updatable = false)
 	private Long id;
+
+	@Column(nullable = false)
 	private String prenom;
+
+	@Column(nullable = false)
 	private String nom;
+
+	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private Race race;
+
+	@Column(nullable = false)
+	@Min(10)
+	@Max(800)
 	private int age;
+
+	@Column(nullable = false)
 	private boolean enFormation;
+
+	public Rebelle() {
+	}
+
+	public Rebelle(String prenom, String nom, Race race, int age) {
+		this.prenom = prenom;
+		this.nom = nom;
+		this.race = race;
+		this.age = age;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public Race getRace() {
+		return race;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public boolean isEnFormation() {
+		return enFormation;
+	}
+
+	public void setEnFormation(boolean enFormation) {
+		this.enFormation = enFormation;
+	}
 }

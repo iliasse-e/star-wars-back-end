@@ -25,9 +25,9 @@ public class MissionServiceImpl implements MissionService {
 
 	@Override
 	public Mission saveMission(Mission mission) {
-		Mission currentMission = mission;
-		missionRepository.save(currentMission);
-		return currentMission;
+		// Mission currentMission = mission;
+		return missionRepository.save(mission);
+		// return currentMission;
 	}
 
 	@Override

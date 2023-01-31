@@ -1,5 +1,6 @@
 package org.sid.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -21,19 +22,22 @@ public class Chasseur {
     @Id
     @SequenceGenerator(name = "chasseur_generator", sequenceName = "chasseur_generator", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "chasseur_generator")
-    @Column(name = "id_chasseur")
+    @Column(name = "id_chasseur", updatable = false)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private TypeChasseur typeChasseur;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private EtatChasseur etatChasseur;
 
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_pilote")
-    @OneToOne
     private Pilote pilote;
 
     public Chasseur() {

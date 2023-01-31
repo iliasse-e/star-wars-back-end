@@ -1,9 +1,13 @@
 package org.sid.web;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.sid.dao.MissionRepository;
 import org.sid.entities.Mission;
+import org.sid.exceptions.MissionNotFoundException;
+import org.sid.services.MissionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,25 +20,30 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @RestController
 @RequestMapping("/missions")
 public class MissionRestControllerAPI {
-	private final MissionRepository missionRepository;
+	@Autowired
+	private MissionService missionService;
 
-	public MissionRestControllerAPI(MissionRepository missionRepository) {
-		this.missionRepository = missionRepository;
+	public MissionService getMissionService() {
+		return missionService;
 	}
-	
-	@GetMapping
-	public List<Mission> listeMission() {
-		return missionRepository.findAll();
+
+	public void setMissionService(MissionService missionService) {
+		this.missionService = missionService;
 	}
-	
-	@GetMapping("/{id}")
-	public Mission getOne(@PathVariable Long id) {
-		return missionRepository.getById(id);
-	}
-	
+
 	@PostMapping
-	public Mission save(@RequestBody Mission mission) {
-		return missionRepository.save(mission);
+	public Mission create(@RequestBody Mission mission) {
+		return missionService.saveMission(mission);
 	}
-	
+
+	@GetMapping
+	public Iterable<Mission> missions() {
+		return missionService.listMission();
+	}
+
+	@GetMapping("/{id}")
+	public Mission get(@PathVariable("id") Long missionId) throws MissionNotFoundException {
+		return missionService.getMission(missionId);
+	}
+
 }
