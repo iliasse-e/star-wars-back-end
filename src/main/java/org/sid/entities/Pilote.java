@@ -2,6 +2,7 @@ package org.sid.entities;
 
 
 import org.sid.enums.Grade;
+import org.sid.enums.Race;
 import org.sid.enums.Sante;
 
 import javax.persistence.*;
@@ -35,36 +36,23 @@ public class Pilote extends Rebelle {
     @JoinColumn(name = "id_mission")
     private Mission missionActuelle;
 
-    /*public Pilote(
-            String _prenom, String _nom, Race _race, int _age,
-            Grade _grade, double _heureDeVol,
-            int _nbMission, Sante _sante, Chasseur _chasseur,
-            Mission _missionActuelle) {
-        super(null, _prenom, _nom, _race, _age, true);
-        grade = _grade;
-        heureDeVol = _heureDeVol;
-        nbMission = _nbMission;
-        sante = _sante;
-        chasseur = _chasseur;
-        missionActuelle = _missionActuelle;
-    }*/
+
     //------------------------------------------------------
     // CONSTRUCTEURS
     //------------------------------------------------------
 
-	/*public Pilote(
-        String _prenom, String _nom, Race _race, int _age,
-        Grade _grade, double _heureDeVol,
-        int _nbMission, Sante _sante, Chasseur _chasseur,
-        Mission _missionActuelle) {
-    super(null, _prenom, _nom, _race, _age, true);
-    grade = _grade;
-    heureDeVol = _heureDeVol;
-    nbMission = _nbMission;
-    sante = _sante;
-    chasseur = _chasseur;
-    missionActuelle = _missionActuelle;
-}*/
+    public Pilote() {
+        super();
+    }
+
+    public Pilote(String prenom, String nom, Race race, int age) {
+        super(prenom, nom, race, age);
+        this.heureDeVol = 0;
+        this.nbMission = 0;
+        this.sante = Sante.FORME;
+    }
+
+
     //------------------------------------------------------
     // METHODES
     //------------------------------------------------------

@@ -9,4 +9,6 @@ public interface PiloteService {
 	Pilote savePilote(Pilote pilote);
 	List<Pilote> listPilote();
 	Pilote getPilote(Long piloteId) throws PiloteNotFoundException;
+
+	List<Pilote> getPiloteDispo();
 }

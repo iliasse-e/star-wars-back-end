@@ -1,12 +1,14 @@
 package org.sid.services;
 
 import org.sid.dao.PiloteRepository;
+import org.sid.entities.Chasseur;
 import org.sid.entities.Pilote;
 import org.sid.exceptions.PiloteNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -35,6 +37,11 @@ public class PiloteServiceImpl implements PiloteService {
 		Pilote currentPilote = piloteRepository.findById(piloteId)
 				.orElseThrow(()-> new PiloteNotFoundException("Pilote inconnue"));
 		return currentPilote;
+	}
+
+	@Override
+	public List<Pilote> getPiloteDispo() {
+		return (List<Pilote>) piloteRepository.findAll().stream().filter(pilote -> pilote.getDispo()).collect(Collectors.toList());
 	}
 
 }

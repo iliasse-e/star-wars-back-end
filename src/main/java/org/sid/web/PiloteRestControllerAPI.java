@@ -1,10 +1,13 @@
 package org.sid.web;
 
+import org.sid.entities.Chasseur;
 import org.sid.entities.Pilote;
 import org.sid.exceptions.PiloteNotFoundException;
 import org.sid.services.PiloteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/pilotes")
@@ -28,6 +31,11 @@ public class PiloteRestControllerAPI {
     @GetMapping
     public Iterable<Pilote> pilotes() {
         return piloteService.listPilote();
+    }
+
+    @GetMapping("/dispos")
+    public List<Pilote> getAllPilotesDispos() {
+        return piloteService.getPiloteDispo();
     }
 
     @GetMapping("/pilotes/{id}")
