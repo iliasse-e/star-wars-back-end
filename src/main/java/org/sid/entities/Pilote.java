@@ -1,7 +1,6 @@
 package org.sid.entities;
 
 
-import org.sid.enums.Grade;
 import org.sid.enums.Race;
 import org.sid.enums.Sante;
 
@@ -16,11 +15,9 @@ public class Pilote extends Rebelle {
     @Id
     @SequenceGenerator(name = "pilote_generator", sequenceName = "pilote_generator", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "pilote_generator")
-    @Column(name="id_pilote", updatable = false)
-    private Long id;
+    @Column(name = "id_pilote")
 
-    //@Column(nullable = false)
-    //private Grade grade;
+    private Long id;
 
     private double heureDeVol;
     private int nbMission;
@@ -58,16 +55,40 @@ public class Pilote extends Rebelle {
     //------------------------------------------------------
 
     public boolean getDispo() {
-        return true;
+        return (this.sante == Sante.FORME
+                && this.missionActuelle == null
+                && this.chasseur != null
+                && this.chasseur.getDispo());
+    }
+
+    public String getGrade() {
+        String grade;
+        if (this.heureDeVol <= 500) {
+            grade = "Officier";
+        } else if (this.heureDeVol < 1500 && this.nbMission >= 1) {
+            grade = "Lieutenant";
+        } else if ((this.heureDeVol < 4000) &&
+                (this.heureDeVol >= 1500) &&
+                (this.nbMission >= 3)) {
+            grade = "Capitaine";
+        } else grade = "Commandant";
+        return grade;
     }
 
     //------------------------------------------------------
     // GETTER & SETTER
     //------------------------------------------------------
 
-    //public Grade getGrade() {
-    //    return grade;
-    // }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public double getHeureDeVol() {
         return heureDeVol;
@@ -101,6 +122,10 @@ public class Pilote extends Rebelle {
         this.chasseur = chasseur;
     }
 
+    public void setChasseur() {
+        this.chasseur = null;
+    }
+
     public Mission getMissionActuelle() {
         return missionActuelle;
     }
@@ -108,8 +133,4 @@ public class Pilote extends Rebelle {
     public void setMissionActuelle(Mission missionActuelle) {
         this.missionActuelle = missionActuelle;
     }
-
-   // public void setGrade(Grade grade) {
-    //    this.grade = grade;
-   // }
 }

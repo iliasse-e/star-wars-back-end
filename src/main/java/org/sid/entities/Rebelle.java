@@ -13,7 +13,7 @@ public class Rebelle {
     @Id
     @SequenceGenerator(name = "rebelle_generator", sequenceName = "rebelle_generator", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "rebelle_generator")
-    @Column(name = "id_rebelle", updatable = false)
+    @Column(name = "id_rebelle")
     private Long id;
 
     @Column(nullable = false)
@@ -46,6 +46,10 @@ public class Rebelle {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getPrenom() {

@@ -43,7 +43,6 @@ public class Chasseur {
     }
 
     public Chasseur(String name, TypeChasseur typeChasseur, EtatChasseur etatChasseur) {
-	super();
 	this.name = name;
 	this.typeChasseur = typeChasseur;
 	this.etatChasseur = etatChasseur;
@@ -79,5 +78,13 @@ public class Chasseur {
 
     public boolean getDispo() {
 	return this.etatChasseur == EtatChasseur.OPERATIONNEL;
+    }
+
+    @Override
+    public String toString() {
+        return "Chasseur{" +
+                "name='" + name + '\'' +
+                ", typeChasseur=" + typeChasseur +
+                '}';
     }
 }

@@ -4,9 +4,9 @@ Cette application a été conçue par Andrii, David, Eve & Iliasse
 
 ## Technologies :
 
-JAVA (JDK 11), JEE, Spring web, Spring Data, JPA Hibernate, H2
+JAVA (JDK 11), JEE, Spring web, Spring Data, JPA Hibernate, MariaBD (10.6.11)
 
-IDE : Eclipse
+IDE : Eclipse, IntelliJ
 
 ## Architecture :
 

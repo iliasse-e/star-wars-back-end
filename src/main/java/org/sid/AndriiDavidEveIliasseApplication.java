@@ -22,6 +22,11 @@ import java.util.List;
 
 @SpringBootApplication
 public class AndriiDavidEveIliasseApplication {
+    private final PiloteRepository piloteRepository;
+
+    public AndriiDavidEveIliasseApplication(PiloteRepository piloteRepository) {
+        this.piloteRepository = piloteRepository;
+    }
 
 
     public static void main(String[] args) {
@@ -30,20 +35,53 @@ public class AndriiDavidEveIliasseApplication {
 
 
     @Bean
-    CommandLineRunner start(RebelleService rebelleService, RebelleRepository rebelleRepository, ChasseurRepository chasseurRepository, PiloteRepository piloteRepository, MissionService missionService, PiloteService piloteService) {
+    CommandLineRunner start(RebelleService rebelleService, ChasseurRepository chasseurRepository, MissionService missionService, PiloteService piloteService) {
         return args -> {
 
             missionService.saveMission(new Mission("maMission"));
             missionService.endMission(1L);
-			rebelleService.saveRebelle(new Rebelle("test", "test", Race.HUMAIN, 25));
-            piloteService.savePilote(new Pilote("test", "test", Race.HUMAIN,28));
+            rebelleService.saveRebelle(new Rebelle("test", "test", Race.HUMAIN, 25));
+            piloteService.savePilote(new Pilote("test", "test", Race.HUMAIN, 28));
+
+            Pilote pilote1 = new Pilote("Skywalker", "Luke", Race.HUMAIN, 23);
+
+            Pilote pilote2 = new Pilote("Skywalker", "Enakin", Race.HUMAIN, 10);
+            Pilote pilote3 = new Pilote("Binks", "Jar Jar", Race.TOGRUTA, 18);
 
             Chasseur chas1 = new Chasseur("Luke's Fighter", TypeChasseur.XWING, EtatChasseur.OPERATIONNEL);
             Chasseur chas2 = new Chasseur("Red Five", TypeChasseur.XWING, EtatChasseur.OPERATIONNEL);
             Chasseur chas3 = new Chasseur("Gold Squadron", TypeChasseur.YWING, EtatChasseur.DETRUIT);
             Chasseur chas4 = new Chasseur("T-70", TypeChasseur.XWING, EtatChasseur.MAINTENANCE);
 
+            pilote2.setChasseur(chas2);
+            piloteService.savePilote(pilote2);
+
+            pilote3.setChasseur(chas4);
+            piloteService.savePilote(pilote3);
+
             chasseurRepository.saveAll(List.of(chas1, chas2, chas3, chas4));
+            piloteService.savePilote(pilote1);
+            System.out.println(pilote1.getGrade());
+            pilote1.setHeureDeVol(500);
+            pilote1.setNbMission(2);
+            System.out.println(pilote1.getGrade());
+            pilote1.setHeureDeVol(1200);
+            pilote1.setNbMission(2);
+            System.out.println(pilote1.getGrade());
+            pilote1.setHeureDeVol(1400);
+            pilote1.setNbMission(3);
+            System.out.println(pilote1.getGrade());
+            pilote1.setHeureDeVol(3500);
+            pilote1.setNbMission(11);
+            System.out.println(pilote1.getGrade());
+            System.out.println(pilote1.getChasseur());
+            pilote1.setChasseur(chas1);
+            System.out.println(pilote1.getChasseur());
+            pilote1.setChasseur(chas2);
+            System.out.println(pilote1.getChasseur());
+            pilote1.setChasseur();
+            pilote1.setChasseur(chas1);
+            System.out.println(pilote1.getChasseur());
             System.out.println("Bonjour");
         };
     }
