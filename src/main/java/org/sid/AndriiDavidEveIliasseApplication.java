@@ -29,9 +29,9 @@ public class AndriiDavidEveIliasseApplication {
     CommandLineRunner start(RebelleRepository rebelleRepository, ChasseurRepository chasseurRepository, PiloteRepository piloteRepository, MissionService missionService, PiloteService piloteService) {
         return args -> {
 
-            missionService.saveMission(new Mission());
-            missionService.endMission(1L);
-//			piloteService.savePilote(new Pilote());
+//            missionService.saveMission(new Mission());
+//            missionService.endMission(1L);
+////			piloteService.savePilote(new Pilote());
 
             Chasseur chas1 = new Chasseur("Luke's Fighter", TypeChasseur.XWING, EtatChasseur.OPERATIONNEL);
             Chasseur chas2 = new Chasseur("Red Five", TypeChasseur.XWING, EtatChasseur.OPERATIONNEL);
