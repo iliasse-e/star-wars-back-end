@@ -10,6 +10,7 @@ public interface MissionService {
 	Mission saveMission(Mission mission);
 	List<Mission> listMission();
 	Mission getMission(Long missionId) throws MissionNotFoundException;
+	void deleteMission(Long missionId) throws MissionNotFoundException;
 	Mission addPilotes(List<Pilote> listPilotes);
 	Mission endMission(Long missionId) throws MissionNotFoundException;
 }

@@ -6,6 +6,7 @@ import org.sid.dao.MissionRepository;
 import org.sid.dao.PiloteRepository;
 import org.sid.entities.Mission;
 import org.sid.entities.Pilote;
+import org.sid.exceptions.ChasseurNotFoundException;
 import org.sid.exceptions.MissionNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +42,14 @@ public class MissionServiceImpl implements MissionService {
 		Mission currentMission = missionRepository.findById(missionId)
 				.orElseThrow(() -> new MissionNotFoundException("Mission inconnue"));
 		return currentMission;
+	}
+
+	@Override
+	public void deleteMission(Long missionId) throws MissionNotFoundException {
+		if (missionRepository.findById(missionId).isEmpty()) {
+			throw new MissionNotFoundException("No mission with this id found");
+		}
+		missionRepository.deleteById(missionId);
 	}
 
 	@Override
