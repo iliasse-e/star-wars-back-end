@@ -15,8 +15,8 @@ public class Pilote extends Rebelle {
     @Id
     @SequenceGenerator(name = "pilote_generator", sequenceName = "pilote_generator", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "pilote_generator")
-    @Column(name = "id_pilote")
 
+    @Column(name = "id_pilote")
     private Long id;
 
     private double heureDeVol;

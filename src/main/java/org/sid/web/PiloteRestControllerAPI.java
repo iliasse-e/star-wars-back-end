@@ -33,7 +33,7 @@ public class PiloteRestControllerAPI {
         return piloteService.listPilote();
     }
 
-    @DeleteMapping(path = "/pilotes/{piloteId]")
+    @DeleteMapping("/delete/{piloteId]")
     public boolean deletePilote(@PathVariable("piloteId") Long piloteId) throws PiloteNotFoundException {
         piloteService.deletePilote(piloteId);
         return true;
@@ -44,8 +44,8 @@ public class PiloteRestControllerAPI {
         return piloteService.getPiloteDispo();
     }
 
-    @GetMapping("/pilotes/{rebelleId}")
-    public Pilote get(@PathVariable("rebelleId") Long rebelleId) throws PiloteNotFoundException {
-        return piloteService.getPilote(rebelleId);
+    @GetMapping("/get/{piloteId}")
+    public Pilote get(@PathVariable("piloteId") Long piloteId) throws PiloteNotFoundException {
+        return piloteService.getPilote(piloteId);
     }
 }
