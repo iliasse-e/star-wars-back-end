@@ -19,8 +19,8 @@ public class Pilote extends Rebelle {
     @Column(updatable = false)
     private Long id;
 
-    @Column(nullable = false)
-    private Grade grade;
+    //@Column(nullable = false)
+    //private Grade grade;
 
     private double heureDeVol;
     private int nbMission;
@@ -65,9 +65,9 @@ public class Pilote extends Rebelle {
     // GETTER & SETTER
     //------------------------------------------------------
 
-    public Grade getGrade() {
-        return grade;
-    }
+    //public Grade getGrade() {
+    //    return grade;
+    // }
 
     public double getHeureDeVol() {
         return heureDeVol;
@@ -109,7 +109,7 @@ public class Pilote extends Rebelle {
         this.missionActuelle = missionActuelle;
     }
 
-    public void setGrade(Grade grade) {
-        this.grade = grade;
-    }
+   // public void setGrade(Grade grade) {
+    //    this.grade = grade;
+   // }
 }
