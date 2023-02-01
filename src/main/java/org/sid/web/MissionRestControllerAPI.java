@@ -5,15 +5,11 @@ import java.util.List;
 
 import org.sid.dao.MissionRepository;
 import org.sid.entities.Mission;
+import org.sid.exceptions.ChasseurNotFoundException;
 import org.sid.exceptions.MissionNotFoundException;
 import org.sid.services.MissionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -45,6 +41,11 @@ public class MissionRestControllerAPI {
 	@GetMapping("/missions/{id}")
 	public Mission get(@PathVariable("id") Long missionId) throws MissionNotFoundException {
 		return missionService.getMission(missionId);
+	}
+
+	@DeleteMapping(path = "/missions/{missionId}")
+	public void deleteMisson(@PathVariable("missionId") Long missionId) throws MissionNotFoundException {
+		missionService.deleteMission(missionId);
 	}
 
 }

@@ -33,8 +33,8 @@ public class AndriiDavidEveIliasseApplication {
     CommandLineRunner start(RebelleService rebelleService, RebelleRepository rebelleRepository, ChasseurRepository chasseurRepository, PiloteRepository piloteRepository, MissionService missionService, PiloteService piloteService) {
         return args -> {
 
-//            missionService.saveMission(new Mission("maMission"));
-//            missionService.endMission(1L);
+            missionService.saveMission(new Mission("maMission"));
+            missionService.endMission(1L);
 			rebelleService.saveRebelle(new Rebelle("test", "test", Race.HUMAIN, 25));
             piloteService.savePilote(new Pilote("test", "test", Race.HUMAIN,28));
 
