@@ -1,7 +1,6 @@
 package org.sid.entities;
 
 
-import org.sid.enums.Grade;
 import org.sid.enums.Race;
 import org.sid.enums.Sante;
 
@@ -55,7 +54,10 @@ public class Pilote extends Rebelle {
     //------------------------------------------------------
 
     public boolean getDispo() {
-        return (this.sante == Sante.FORME && this.missionActuelle == null);
+        return (this.sante == Sante.FORME
+                && this.missionActuelle == null
+                && this.chasseur != null
+                && this.chasseur.getDispo());
     }
 
     public String getGrade() {
