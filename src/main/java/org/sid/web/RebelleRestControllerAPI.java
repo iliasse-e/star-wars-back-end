@@ -34,4 +34,9 @@ public class RebelleRestControllerAPI {
     public Rebelle get(@PathVariable("id") Long rebelleId) throws RebelleNotFoundException {
         return rebelleService.getRebelle(rebelleId);
     }
+
+    @DeleteMapping(path = "/rebelles/{rebelleId}")
+    public void deleteRebelle(@PathVariable("rebelleId") long rebelleId) throws RebelleNotFoundException {
+        rebelleService.deleteRebelle(rebelleId);
+    }
 }
