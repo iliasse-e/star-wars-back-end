@@ -19,10 +19,35 @@ public class ChasseurRestControllerAPI {
     public ChasseurRestControllerAPI(ChasseurService chasseurService) {
         this.chasseurService = chasseurService;
     }
-
     @GetMapping()
     public List<Chasseur> getAllChasseurs() {
         return chasseurService.listChasseurs();
+    }
+
+    /**
+     * Permet de récuperer tout les chasseurs opérationnels
+     * @return
+     */
+    @GetMapping("/dispos")
+    public List<Chasseur> getAllChasseursDispos() {
+        return chasseurService.getChasseursDispo();
+    }
+
+    /**
+     * Permet de retourner tout les chasseurs avec un pilotes
+     * @return
+     */
+    @GetMapping("/pilotes")
+    public List<Chasseur> getChasseursAvecPilotes() {
+        return chasseurService.getChasseursAvecPilotes();
+    }
+    /**
+     * Permet de retourner tout les chasseurs opérationnels et avec un pilote donc pret pour faire une mission
+     * @return
+     */
+    @GetMapping("/missions")
+    public List<Chasseur> getChasseursPretPourMission() {
+        return chasseurService.getChasseursPretPourMission();
     }
 
     @PostMapping()

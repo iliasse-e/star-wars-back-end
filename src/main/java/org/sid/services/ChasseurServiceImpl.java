@@ -1,5 +1,6 @@
 package org.sid.services;
 
+import org.jetbrains.annotations.NotNull;
 import org.sid.dao.ChasseurRepository;
 import org.sid.entities.Chasseur;
 import org.sid.entities.Pilote;
@@ -7,7 +8,6 @@ import org.sid.enums.EtatChasseur;
 import org.sid.exceptions.ChasseurNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -33,21 +33,22 @@ public class ChasseurServiceImpl implements ChasseurService {
     }
 
     @Override
-	public List<Chasseur> getChasseursDispo() {
-		return (List<Chasseur>) chasseurRepository.findAll().stream().filter(chasseur -> chasseur.getDispo()).collect(Collectors.toList());
-	}
+    public List<Chasseur> getChasseursDispo() {
+        return (List<Chasseur>) chasseurRepository.findAll().stream().filter(chasseur -> chasseur.getDispo()).collect(Collectors.toList());
+    }
 
-	@Override
-	public List<Chasseur> getChasseursAvecPilotes() {
-		return (List<Chasseur>) chasseurRepository.findAll().stream().filter(chasseur -> chasseur.getPilote() != null).collect(Collectors.toList());
-	}
-
-	public List<Chasseur> getChasseursPretPourMission() {
-		List<Chasseur> chasseursDispos = chasseurRepository.findAll().stream().filter(chasseur -> chasseur.getDispo()).collect(Collectors.toList());
-		return chasseursDispos.stream().filter(chasseur -> chasseur.getPilote() != null).collect(Collectors.toList());
-	}
     @Override
-    public void saveChasseur(Chasseur chasseur) {
+    public List<Chasseur> getChasseursAvecPilotes() {
+        return (List<Chasseur>) chasseurRepository.findAll().stream().filter(chasseur -> chasseur.getPilote() != null).collect(Collectors.toList());
+    }
+
+    public List<Chasseur> getChasseursPretPourMission() {
+        List<Chasseur> chasseursDispos = chasseurRepository.findAll().stream().filter(chasseur -> chasseur.getDispo()).collect(Collectors.toList());
+        return chasseursDispos.stream().filter(chasseur -> chasseur.getPilote() != null).collect(Collectors.toList());
+    }
+
+    @Override
+    public void saveChasseur(@NotNull Chasseur chasseur) {
         Optional<Chasseur> chasseurOptional = chasseurRepository.findChasseurByName(chasseur.getName());
         if (chasseurOptional.isPresent()) {
             throw new IllegalStateException("Ship is already in the database");
@@ -81,5 +82,5 @@ public class ChasseurServiceImpl implements ChasseurService {
    /* @Override
     public void addNewChasseur(Chasseur chasseur) {
 
-    } /*
+    } */
 }
