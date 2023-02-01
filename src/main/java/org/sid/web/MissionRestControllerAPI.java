@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.sid.dao.MissionRepository;
 import org.sid.entities.Mission;
+import org.sid.entities.Pilote;
+import org.sid.enums.EtatChasseur;
 import org.sid.exceptions.ChasseurNotFoundException;
 import org.sid.exceptions.MissionNotFoundException;
 import org.sid.services.MissionService;
@@ -46,6 +48,11 @@ public class MissionRestControllerAPI {
 	@DeleteMapping(path = "/missions/{missionId}")
 	public void deleteMisson(@PathVariable("missionId") Long missionId) throws MissionNotFoundException {
 		missionService.deleteMission(missionId);
+	}
+
+	@PutMapping(path = "/missions/{missionsId}")
+	public void updateMission(@PathVariable("missionId") Long missionId, @RequestParam(required = false) String name) throws MissionNotFoundException {
+		missionService.updateMission(missionId, name);
 	}
 
 }
