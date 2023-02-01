@@ -80,4 +80,12 @@ public class Chasseur {
     public boolean getDispo() {
 	return this.etatChasseur == EtatChasseur.OPERATIONNEL;
     }
+
+    @Override
+    public String toString() {
+        return "Chasseur{" +
+                "name='" + name + '\'' +
+                ", typeChasseur=" + typeChasseur +
+                '}';
+    }
 }

@@ -108,6 +108,10 @@ public class Pilote extends Rebelle {
         this.chasseur = chasseur;
     }
 
+    public void setChasseur() {
+        this.chasseur = null;
+    }
+
     public Mission getMissionActuelle() {
         return missionActuelle;
     }
