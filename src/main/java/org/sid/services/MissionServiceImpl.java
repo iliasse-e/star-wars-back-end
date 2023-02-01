@@ -5,8 +5,6 @@ import java.util.List;
 import org.sid.dao.MissionRepository;
 import org.sid.dao.PiloteRepository;
 import org.sid.entities.Mission;
-import org.sid.entities.Pilote;
-import org.sid.exceptions.ChasseurNotFoundException;
 import org.sid.exceptions.MissionNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,10 +51,21 @@ public class MissionServiceImpl implements MissionService {
 	}
 
 	@Override
+	@Transactional
+	public void updateMission(Long missionId, String nom) throws MissionNotFoundException {
+		Mission mission = missionRepository.findById(missionId)
+				.orElseThrow(() -> new MissionNotFoundException("No mission with this id found"));
+
+		if (nom != null && mission.getNom() != nom) {
+			mission.setNom(nom);
+		}
+	}
+
+	/*@Override
 	public Mission addPilotes(List<Pilote> listPilotes) {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	} */
 
 	@Override
 	public Mission endMission(Long missionId) throws MissionNotFoundException {
@@ -65,5 +74,4 @@ public class MissionServiceImpl implements MissionService {
 		currentMission.endMission();
 		return currentMission;
 	}
-
 }
