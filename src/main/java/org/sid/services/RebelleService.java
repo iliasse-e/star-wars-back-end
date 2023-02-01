@@ -12,5 +12,5 @@ public interface RebelleService {
 
     Rebelle getRebelle(Long rebelleId) throws RebelleNotFoundException;
 
-    void deleteRebelle(long rebelleId) throws RebelleNotFoundException;
+    boolean deleteRebelle(long rebelleId) throws RebelleNotFoundException;
 }

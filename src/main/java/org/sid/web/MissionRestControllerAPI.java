@@ -46,13 +46,14 @@ public class MissionRestControllerAPI {
 	}
 
 	@DeleteMapping(path = "/missions/{missionId}")
-	public void deleteMisson(@PathVariable("missionId") Long missionId) throws MissionNotFoundException {
+	public boolean deleteMisson(@PathVariable("missionId") Long missionId) throws MissionNotFoundException {
 		missionService.deleteMission(missionId);
+		return true;
 	}
 
 	@PutMapping(path = "/missions/{missionsId}")
-	public void updateMission(@PathVariable("missionId") Long missionId, @RequestParam(required = false) String name) throws MissionNotFoundException {
-		missionService.updateMission(missionId, name);
+	public Mission updateMission(@PathVariable("missionId") Long missionId, @RequestParam(required = false) String name) throws MissionNotFoundException {
+		return missionService.updateMission(missionId, name);
 	}
 
 }

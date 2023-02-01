@@ -10,5 +10,7 @@ public interface PiloteService {
 	List<Pilote> listPilote();
 	Pilote getPilote(Long piloteId) throws PiloteNotFoundException;
 
-	List<Pilote> getPiloteDispo();
+    boolean deletePilote(Long piloteId) throws PiloteNotFoundException;
+
+    List<Pilote> getPiloteDispo();
 }

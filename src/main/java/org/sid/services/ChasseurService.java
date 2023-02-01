@@ -19,10 +19,10 @@ public interface ChasseurService {
 
     void saveChasseur(Chasseur chasseur);
 
-    void deleteChasseur(Long chasseurId) throws ChasseurNotFoundException;
+    boolean deleteChasseur(Long chasseurId) throws ChasseurNotFoundException;
 
     @Transactional
-    void updateChasseur(Long chasseurId, EtatChasseur etatChasseur, Pilote pilote) throws ChasseurNotFoundException;
+    Chasseur updateChasseur(Long chasseurId, EtatChasseur etatChasseur, Pilote pilote) throws ChasseurNotFoundException;
 
     // void addNewChasseur(Chasseur );
 }

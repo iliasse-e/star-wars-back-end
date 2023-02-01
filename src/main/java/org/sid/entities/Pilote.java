@@ -8,7 +8,7 @@ import org.sid.enums.Sante;
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name = "pilote")
 public class Pilote extends Rebelle {
     //------------------------------------------------------
     // ATTRIBUTS
@@ -16,7 +16,7 @@ public class Pilote extends Rebelle {
     @Id
     @SequenceGenerator(name = "pilote_generator", sequenceName = "pilote_generator", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "pilote_generator")
-    @Column(updatable = false)
+    @Column(name="id_pilote", updatable = false)
     private Long id;
 
     //@Column(nullable = false)

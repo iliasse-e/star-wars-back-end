@@ -57,16 +57,17 @@ public class ChasseurServiceImpl implements ChasseurService {
     }
 
     @Override
-    public void deleteChasseur(Long chasseurId) throws ChasseurNotFoundException {
+    public boolean deleteChasseur(Long chasseurId) throws ChasseurNotFoundException {
         if (chasseurRepository.findById(chasseurId).isEmpty()) {
             throw new ChasseurNotFoundException("No ship with this id found");
         }
         chasseurRepository.deleteById(chasseurId);
+        return true;
     }
 
     @Override
     @Transactional
-    public void updateChasseur(Long chasseurId, EtatChasseur etatChasseur, Pilote pilote) throws ChasseurNotFoundException {
+    public Chasseur updateChasseur(Long chasseurId, EtatChasseur etatChasseur, Pilote pilote) throws ChasseurNotFoundException {
         Chasseur chasseur = chasseurRepository.findById(chasseurId)
                 .orElseThrow(() -> new ChasseurNotFoundException("No ship with this id found"));
 
@@ -77,6 +78,7 @@ public class ChasseurServiceImpl implements ChasseurService {
             chasseur.setPilote(pilote);
         }
 
+        return chasseur;
     }
 
    /* @Override

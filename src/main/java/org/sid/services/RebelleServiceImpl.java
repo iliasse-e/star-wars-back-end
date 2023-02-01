@@ -2,7 +2,6 @@ package org.sid.services;
 
 import org.sid.dao.RebelleRepository;
 import org.sid.entities.Rebelle;
-import org.sid.enums.Race;
 import org.sid.exceptions.RebelleNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,11 +35,12 @@ public class RebelleServiceImpl implements RebelleService {
     }
 
     @Override
-    public void deleteRebelle(long rebelleId) throws RebelleNotFoundException {
+    public boolean deleteRebelle(long rebelleId) throws RebelleNotFoundException {
         if (rebelleRepository.findById(rebelleId).isEmpty()) {
             throw new RebelleNotFoundException("No rebelle with this id found");
         }
          rebelleRepository.deleteById(rebelleId);
+        return true;
     }
 
     /* @Override

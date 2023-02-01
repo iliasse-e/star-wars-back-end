@@ -19,6 +19,11 @@ public class ChasseurRestControllerAPI {
     public ChasseurRestControllerAPI(ChasseurService chasseurService) {
         this.chasseurService = chasseurService;
     }
+
+    /**
+     * Retourne tout les chasseurs
+     * @return
+     */
     @GetMapping()
     public List<Chasseur> getAllChasseurs() {
         return chasseurService.listChasseurs();
@@ -51,18 +56,20 @@ public class ChasseurRestControllerAPI {
     }
 
     @PostMapping()
-    public void registerNewChasseur(@RequestBody Chasseur chasseur) {
+    public Chasseur registerNewChasseur(@RequestBody Chasseur chasseur) {
         chasseurService.saveChasseur(chasseur);
+        return chasseur;
     }
 
     @DeleteMapping(path = "/chasseurs/{chasseurId}")
-    public void deleteChasseur(@PathVariable("chasseurId") Long chasseurId) throws ChasseurNotFoundException {
+    public boolean deleteChasseur(@PathVariable("chasseurId") Long chasseurId) throws ChasseurNotFoundException {
         chasseurService.deleteChasseur(chasseurId);
+        return true;
     }
 
     @PutMapping(path = "/chasseurs/{chasseurId}")
-    public void updateChasseur(@PathVariable("chasseurId") Long chasseurId, @RequestParam(required = false) String name,
+    public Chasseur updateChasseur(@PathVariable("chasseurId") Long chasseurId, @RequestParam(required = false) String name,
                                @RequestParam(required = false) EtatChasseur etatChasseur, @RequestParam(required = false) Pilote pilote) throws ChasseurNotFoundException {
-        chasseurService.updateChasseur(chasseurId, etatChasseur, pilote);
+       return chasseurService.updateChasseur(chasseurId, etatChasseur, pilote);
     }
 }
