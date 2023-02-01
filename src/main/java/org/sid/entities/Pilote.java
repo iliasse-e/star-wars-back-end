@@ -19,9 +19,6 @@ public class Pilote extends Rebelle {
     @Column(updatable = false)
     private Long id;
 
-    //@Column(nullable = false)
-    //private Grade grade;
-
     private double heureDeVol;
     private int nbMission;
 
@@ -59,6 +56,22 @@ public class Pilote extends Rebelle {
 
     public boolean getDispo() {
         return true;
+    }
+
+    public String getGrade() {
+        String grade;
+        if (this.heureDeVol <= 500) {
+            grade = "Officier";
+        } else if ((this.heureDeVol < 1500) &&
+                (this.heureDeVol > 500) &&
+                (this.nbMission >= 1)) {
+            grade = "Lieutenant";
+        } else if ((this.heureDeVol < 4000) &&
+                (this.heureDeVol >= 1500) &&
+                (this.nbMission >= 3)) {
+            grade = "Capitaine";
+        } else grade = "Commandant";
+        return grade;
     }
 
     //------------------------------------------------------
@@ -109,7 +122,7 @@ public class Pilote extends Rebelle {
         this.missionActuelle = missionActuelle;
     }
 
-   // public void setGrade(Grade grade) {
+    // public void setGrade(Grade grade) {
     //    this.grade = grade;
-   // }
+    // }
 }
