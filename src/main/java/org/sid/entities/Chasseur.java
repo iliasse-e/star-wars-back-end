@@ -43,7 +43,6 @@ public class Chasseur {
     }
 
     public Chasseur(String name, TypeChasseur typeChasseur, EtatChasseur etatChasseur) {
-	super();
 	this.name = name;
 	this.typeChasseur = typeChasseur;
 	this.etatChasseur = etatChasseur;

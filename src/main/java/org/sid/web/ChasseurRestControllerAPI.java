@@ -37,7 +37,7 @@ public class ChasseurRestControllerAPI {
      * Permet de retourner tout les chasseurs avec un pilotes
      * @return
      */
-    @GetMapping("/pilotes")
+    @GetMapping("/pilotess")
     public List<Chasseur> getChasseursAvecPilotes() {
         return chasseurService.getChasseursAvecPilotes();
     }

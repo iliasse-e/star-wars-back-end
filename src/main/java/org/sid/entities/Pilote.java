@@ -16,7 +16,7 @@ public class Pilote extends Rebelle {
     @Id
     @SequenceGenerator(name = "pilote_generator", sequenceName = "pilote_generator", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "pilote_generator")
-    @Column(updatable = false)
+    @Column(name = "id_pilote")
     private Long id;
 
     private double heureDeVol;
@@ -76,6 +76,17 @@ public class Pilote extends Rebelle {
     // GETTER & SETTER
     //------------------------------------------------------
 
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public double getHeureDeVol() {
         return heureDeVol;
     }
@@ -119,8 +130,4 @@ public class Pilote extends Rebelle {
     public void setMissionActuelle(Mission missionActuelle) {
         this.missionActuelle = missionActuelle;
     }
-
-    // public void setGrade(Grade grade) {
-    //    this.grade = grade;
-    // }
 }
