@@ -15,14 +15,14 @@ public class Mission {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_mission", updatable = false)
 	private Long id;
-	@Column
+
+	@Column(nullable = false)
 	private String nom;
 
 	@OneToMany
 	@Column(nullable = false)
 	private List<Pilote> pilotes;
 
-	@Column(nullable = false)
 	private int nbHeureMission;
 
 	@Column(nullable = false)
@@ -32,7 +32,12 @@ public class Mission {
 	// CONSTRUCTEUR
 	//------------------------------------------------------
 
+	public Mission() {
+	}
 
+	public Mission(String nom) {
+		this.nom = nom;
+	}
 
 	//------------------------------------------------------
 	// METHODES
