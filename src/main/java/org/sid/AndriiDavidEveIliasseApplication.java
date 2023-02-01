@@ -53,6 +53,9 @@ public class AndriiDavidEveIliasseApplication {
             chasseurRepository.saveAll(List.of(chas1, chas2, chas3, chas4));
             piloteService.savePilote(pilote1);
             System.out.println(pilote1.getGrade());
+            pilote1.setHeureDeVol(500);
+            pilote1.setNbMission(2);
+            System.out.println(pilote1.getGrade());
             pilote1.setHeureDeVol(1200);
             pilote1.setNbMission(2);
             System.out.println(pilote1.getGrade());

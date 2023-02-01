@@ -55,16 +55,14 @@ public class Pilote extends Rebelle {
     //------------------------------------------------------
 
     public boolean getDispo() {
-        return true;
+        return (this.sante == Sante.FORME && this.missionActuelle == null);
     }
 
     public String getGrade() {
         String grade;
         if (this.heureDeVol <= 500) {
             grade = "Officier";
-        } else if ((this.heureDeVol < 1500) &&
-                (this.heureDeVol > 500) &&
-                (this.nbMission >= 1)) {
+        } else if (this.heureDeVol < 1500 && this.nbMission >= 1) {
             grade = "Lieutenant";
         } else if ((this.heureDeVol < 4000) &&
                 (this.heureDeVol >= 1500) &&
@@ -77,10 +75,6 @@ public class Pilote extends Rebelle {
     //------------------------------------------------------
     // GETTER & SETTER
     //------------------------------------------------------
-
-    //public Grade getGrade() {
-    //    return grade;
-    // }
 
     public double getHeureDeVol() {
         return heureDeVol;
