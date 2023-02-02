@@ -3,6 +3,7 @@ package org.sid.services;
 import org.sid.entities.Chasseur;
 import org.sid.entities.Pilote;
 import org.sid.enums.Sante;
+import org.sid.exceptions.ChasseurNotFoundException;
 import org.sid.exceptions.PiloteNotFoundException;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -17,7 +18,7 @@ public interface PiloteService {
 
     List<Pilote> getPiloteDispo();
 
-    Pilote affecterChasseur(Long piloteId, Chasseur chasseur) throws PiloteNotFoundException;
+    Pilote affecterChasseur(Long piloteId, Long chasseurId) throws PiloteNotFoundException, ChasseurNotFoundException;
 
     Pilote desaffecterChasseur(Long piloteId) throws PiloteNotFoundException;
 

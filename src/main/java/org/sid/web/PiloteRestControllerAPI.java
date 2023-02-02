@@ -3,6 +3,7 @@ package org.sid.web;
 import org.sid.entities.Chasseur;
 import org.sid.entities.Pilote;
 import org.sid.enums.Sante;
+import org.sid.exceptions.ChasseurNotFoundException;
 import org.sid.exceptions.PiloteNotFoundException;
 import org.sid.exceptions.RebelleNotFoundException;
 import org.sid.services.PiloteService;
@@ -55,8 +56,8 @@ public class PiloteRestControllerAPI {
     }
 
     @PutMapping("/affecter_chasseur/{piloteId}")
-    public Pilote affecterChasseur(@PathVariable("piloteId") Long piloteId, Chasseur chasseur) throws PiloteNotFoundException {
-        return piloteService.affecterChasseur(piloteId, chasseur);
+    public Pilote affecterChasseur(@PathVariable("piloteId") Long piloteId, Long chasseurId) throws PiloteNotFoundException, ChasseurNotFoundException {
+        return piloteService.affecterChasseur(piloteId, chasseurId);
     }
 
     @PutMapping("/desaffecter_chasseur/{piloteId}")

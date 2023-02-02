@@ -1,13 +1,14 @@
 package org.sid.services;
 
+import org.sid.dao.ChasseurRepository;
 import org.sid.dao.PiloteRepository;
 import org.sid.entities.Chasseur;
 import org.sid.entities.Pilote;
 import org.sid.enums.Sante;
+import org.sid.exceptions.ChasseurNotFoundException;
 import org.sid.exceptions.PiloteNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,9 +19,11 @@ import java.util.stream.Collectors;
 public class PiloteServiceImpl implements PiloteService {
 
 	private final PiloteRepository piloteRepository;
+	private final ChasseurRepository chasseurRepository;
 
-	public PiloteServiceImpl(PiloteRepository piloteRepository) {
+	public PiloteServiceImpl(PiloteRepository piloteRepository, ChasseurRepository chasseurRepository) {
 		this.piloteRepository = piloteRepository;
+		this.chasseurRepository = chasseurRepository;
 	}
 
 	@Override
@@ -55,9 +58,11 @@ public class PiloteServiceImpl implements PiloteService {
 
 	@Override
 	@Transactional
-	public Pilote affecterChasseur(Long piloteId, Chasseur chasseur) throws PiloteNotFoundException {
+	public Pilote affecterChasseur(Long piloteId, Long chasseurId) throws PiloteNotFoundException, ChasseurNotFoundException {
 		Pilote pilote = piloteRepository.findById(piloteId)
 				.orElseThrow(() -> new PiloteNotFoundException("No pilots with this id found"));
+		Chasseur chasseur = chasseurRepository.findById(chasseurId)
+				.orElseThrow(() -> new ChasseurNotFoundException("No ship with this id found"));
 		pilote.setChasseur(chasseur);
 		chasseur.setPilote(pilote);
 		return pilote;
