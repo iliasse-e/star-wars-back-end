@@ -3,6 +3,7 @@ package org.sid.services;
 import org.sid.dao.PiloteRepository;
 import org.sid.entities.Chasseur;
 import org.sid.entities.Pilote;
+import org.sid.enums.Sante;
 import org.sid.exceptions.PiloteNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,8 +58,31 @@ public class PiloteServiceImpl implements PiloteService {
 	public Pilote affecterChasseur(Long piloteId, Chasseur chasseur) throws PiloteNotFoundException {
 		Pilote pilote = piloteRepository.findById(piloteId)
 				.orElseThrow(() -> new PiloteNotFoundException("No pilots with this id found"));
-
 		pilote.setChasseur(chasseur);
+		chasseur.setPilote(pilote);
+		return pilote;
+	}
+
+	@Override
+	@Transactional
+	public Pilote desaffecterChasseur(Long piloteId) throws PiloteNotFoundException {
+		Pilote pilote = piloteRepository.findById(piloteId)
+				.orElseThrow(() -> new PiloteNotFoundException("No pilots with this id found"));
+		pilote.getChasseur().setPilote(null);
+		pilote.setChasseur();
+
+		return pilote;
+	}
+
+	@Override
+	@Transactional
+	public Pilote updatePilote(Long piloteId, double heures, Sante sante) throws PiloteNotFoundException {
+		Pilote pilote = piloteRepository.findById(piloteId)
+				.orElseThrow(() -> new PiloteNotFoundException("No pilots with this id found"));
+		pilote.setSante(sante);
+		pilote.setNbMission(pilote.getNbMission() + 1);
+		pilote.setMissionActuelle(null);
+		pilote.setHeureDeVol(pilote.getHeureDeVol() + heures);
 		return pilote;
 	}
 }
