@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @RestController
 @RequestMapping("/missions")
+@CrossOrigin(origins = "http://localhost:4200")
 
 public class MissionRestControllerAPI {
 	@Autowired
@@ -31,8 +32,8 @@ public class MissionRestControllerAPI {
 	}
 
 	@PostMapping
-	public Mission create(@RequestBody Mission mission) {
-		return missionService.saveMission(mission);
+	public Mission create(@RequestBody Mission mission, List<Pilote> pilotes) {
+		return missionService.saveMission(mission, pilotes);
 	}
 
 	@GetMapping
@@ -51,9 +52,14 @@ public class MissionRestControllerAPI {
 		return true;
 	}
 
-	@PutMapping(path = "/missions/{missionsId}")
+	@PutMapping(path = "/missions/rename/{missionsId}")
 	public Mission updateMission(@PathVariable("missionId") Long missionId, @RequestParam(required = false) String name) throws MissionNotFoundException {
 		return missionService.updateMission(missionId, name);
+	}
+
+	@PutMapping(path = "/missions/{missionsId}")
+	public Mission endMission(@PathVariable("missionId") Long missionId, int nbHeure) throws MissionNotFoundException {
+		return missionService.endMission(missionId, nbHeure);
 	}
 
 }

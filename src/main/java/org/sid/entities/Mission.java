@@ -1,5 +1,6 @@
 package org.sid.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -21,7 +22,8 @@ public class Mission {
 
 	@OneToMany
 	@Column(nullable = false)
-	private List<Pilote> pilotes;
+	private List<Pilote> pilotes = new ArrayList<Pilote>();
+
 
 	private int nbHeureMission;
 
@@ -45,6 +47,10 @@ public class Mission {
 	
 	public void endMission() {
 		estComplete = true;
+	}
+
+	public void  addPilotes(Pilote pilote) {
+		this.pilotes.add(pilote);
 	}
 
 	//------------------------------------------------------
@@ -81,5 +87,13 @@ public class Mission {
 
 	public void setEstComplete(boolean estComplete) {
 		this.estComplete = estComplete;
+	}
+
+	public List<Pilote> getPilotes() {
+		return pilotes;
+	}
+
+	public void setPilotes(List<Pilote> pilotes) {
+		this.pilotes = pilotes;
 	}
 }

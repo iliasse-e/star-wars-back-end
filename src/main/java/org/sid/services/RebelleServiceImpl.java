@@ -1,7 +1,10 @@
 package org.sid.services;
 
+import org.sid.dao.PiloteRepository;
 import org.sid.dao.RebelleRepository;
+import org.sid.entities.Pilote;
 import org.sid.entities.Rebelle;
+import org.sid.enums.Sante;
 import org.sid.exceptions.RebelleNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +16,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class RebelleServiceImpl implements RebelleService {
     private final RebelleRepository rebelleRepository;
-
+    private  PiloteRepository piloteRepository;
     public RebelleServiceImpl(RebelleRepository rebelleRepository) {
         this.rebelleRepository = rebelleRepository;
     }
@@ -44,13 +47,17 @@ public class RebelleServiceImpl implements RebelleService {
         return true;
     }
 
-    /* @Override
+    @Override
     @Transactional
-    public void updateRebelle(Long rebelleId, String nom, String prenom, Race race, int age)  throws RebelleNotFoundException {
+    public Rebelle stopRebelleFormation(Long rebelleId)  throws RebelleNotFoundException {
         Rebelle rebelle = rebelleRepository.findById(rebelleId).orElseThrow(() -> new RebelleNotFoundException("No Rebelle with this id found"));
-
-        if (nom != null && rebelle.getNom() != nom) {
-            rebelle.set
-        }
-    } */
-}
+        // rebelle.setEnFormation(false);
+        Pilote pilote = (Pilote) rebelle;
+        pilote.setHeureDeVol(0);
+        pilote.setNbMission(0);
+        pilote.setSante(Sante.FORME);
+        piloteRepository.save(pilote);
+        // rebelleRepository.deleteById(rebelleId);
+        return rebelle;
+    }
+    }

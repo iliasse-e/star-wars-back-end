@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/rebelles")
+@CrossOrigin(origins = "http://localhost:4200")
 public class RebelleRestControllerAPI {
     @Autowired
     private RebelleService rebelleService;
@@ -39,5 +40,10 @@ public class RebelleRestControllerAPI {
     public boolean deleteRebelle(@PathVariable("rebelleId") long rebelleId) throws RebelleNotFoundException {
         rebelleService.deleteRebelle(rebelleId);
         return true;
+    }
+
+    @PutMapping(path = "/rebelles/{rebelleId}")
+    public Rebelle endFormation(@PathVariable("rebelleId") Long rebelleId) throws RebelleNotFoundException {
+        return rebelleService.stopRebelleFormation(rebelleId);
     }
 }

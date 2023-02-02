@@ -5,6 +5,7 @@ import java.util.List;
 import org.sid.dao.MissionRepository;
 import org.sid.dao.PiloteRepository;
 import org.sid.entities.Mission;
+import org.sid.entities.Pilote;
 import org.sid.exceptions.MissionNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,11 +23,11 @@ public class MissionServiceImpl implements MissionService {
 		this.piloteRepository = piloteRepository;
 	}
 
+
 	@Override
-	public Mission saveMission(Mission mission) {
-		// Mission currentMission = mission;
+	public Mission saveMission(Mission mission, List<Pilote> pilotes) {
+		mission.setPilotes(pilotes);
 		return missionRepository.save(mission);
-		// return currentMission;
 	}
 
 	@Override
@@ -52,6 +53,11 @@ public class MissionServiceImpl implements MissionService {
 	}
 
 	@Override
+	public Mission updateMission(Long missionId) throws MissionNotFoundException {
+		return null;
+	}
+
+	@Override
 	@Transactional
 	public Mission updateMission(Long missionId, String nom) throws MissionNotFoundException {
 		Mission mission = missionRepository.findById(missionId)
@@ -65,10 +71,13 @@ public class MissionServiceImpl implements MissionService {
 
 
 	@Override
-	public Mission endMission(Long missionId) throws MissionNotFoundException {
+	@Transactional
+	public Mission endMission(Long missionId, int nbHeure) throws MissionNotFoundException {
 		Mission currentMission = missionRepository.findById(missionId)
 				.orElseThrow(() -> new MissionNotFoundException("Mission inconnue"));
 		currentMission.endMission();
+		currentMission.getPilotes().forEach(pilote -> pilote.setHeureDeVol(pilote.getHeureDeVol()+nbHeure));
+		currentMission.getPilotes().forEach(pilote -> pilote.setNbMission(pilote.getNbMission()+1));
 		return currentMission;
 	}
 }

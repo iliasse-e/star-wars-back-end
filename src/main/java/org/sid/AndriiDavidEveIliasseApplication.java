@@ -38,8 +38,8 @@ public class AndriiDavidEveIliasseApplication {
     CommandLineRunner start(RebelleService rebelleService, ChasseurRepository chasseurRepository, MissionService missionService, PiloteService piloteService) {
         return args -> {
 
-            missionService.saveMission(new Mission("maMission"));
-            missionService.endMission(1L);
+            // missionService.saveMission(new Mission("maMission"));
+            // missionService.endMission(1L);
             rebelleService.saveRebelle(new Rebelle("test", "test", Race.HUMAIN, 25));
             piloteService.savePilote(new Pilote("test", "test", Race.HUMAIN, 28));
 
@@ -82,6 +82,10 @@ public class AndriiDavidEveIliasseApplication {
             pilote1.setChasseur();
             pilote1.setChasseur(chas1);
             System.out.println(pilote1.getChasseur());
+            Mission mission = new Mission("test");
+            mission.addPilotes(pilote1);
+            mission.addPilotes(pilote2);
+            missionService.saveMission(mission, mission.getPilotes());
             System.out.println("Bonjour");
         };
     }
