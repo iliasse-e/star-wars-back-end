@@ -56,7 +56,7 @@ public class PiloteRestControllerAPI {
     }
 
     @PutMapping("/affecter_chasseur/{piloteId}")
-    public Pilote affecterChasseur(@PathVariable("piloteId") Long piloteId, Long chasseurId) throws PiloteNotFoundException, ChasseurNotFoundException {
+    public Pilote affecterChasseur(@PathVariable("piloteId") Long piloteId, @RequestParam Long chasseurId) throws PiloteNotFoundException, ChasseurNotFoundException {
         return piloteService.affecterChasseur(piloteId, chasseurId);
     }
 
@@ -66,7 +66,7 @@ public class PiloteRestControllerAPI {
     }
 
     @PutMapping("/update/{piloteId}")
-    public Pilote updatePilote(@PathVariable("piloteId") Long piloteId, double heures, Sante sante) throws PiloteNotFoundException {
+    public Pilote updatePilote(@PathVariable("piloteId") Long piloteId, @RequestParam double heures, @RequestParam Sante sante) throws PiloteNotFoundException {
         return piloteService.updatePilote(piloteId, heures, sante);
     }
 }

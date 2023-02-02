@@ -64,7 +64,6 @@ public class PiloteServiceImpl implements PiloteService {
 		Chasseur chasseur = chasseurRepository.findById(chasseurId)
 				.orElseThrow(() -> new ChasseurNotFoundException("No ship with this id found"));
 		pilote.setChasseur(chasseur);
-		chasseur.setPilote(pilote);
 		return pilote;
 	}
 
