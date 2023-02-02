@@ -42,6 +42,7 @@ public class Rebelle {
         this.nom = nom;
         this.race = race;
         this.age = age;
+        this.enFormation = true;
     }
 
     public Long getId() {

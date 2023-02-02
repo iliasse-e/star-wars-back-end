@@ -44,6 +44,7 @@ public class Pilote extends Rebelle {
 
     public Pilote(String prenom, String nom, Race race, int age) {
         super(prenom, nom, race, age);
+        setEnFormation(false);
         this.heureDeVol = 0;
         this.nbMission = 0;
         this.sante = Sante.FORME;

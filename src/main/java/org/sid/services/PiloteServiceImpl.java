@@ -27,7 +27,7 @@ public class PiloteServiceImpl implements PiloteService {
 	}
 	@Override
 	public List<Pilote> listPilote() {
-		return piloteRepository.findAll();
+		return (List<Pilote>) piloteRepository.findAll().stream().filter(pilote -> pilote.isEnFormation() == false).collect(Collectors.toList());
 	}
 
 	@Override

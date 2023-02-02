@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -24,7 +25,7 @@ public class RebelleServiceImpl implements RebelleService {
 
     @Override
     public List<Rebelle> listRebelle() {
-        return rebelleRepository.findAll();
+        return (List<Rebelle>)  rebelleRepository.findAll().stream().filter((rebelle -> rebelle.isEnFormation())).collect(Collectors.toList());
     }
 
     @Override
