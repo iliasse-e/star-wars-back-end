@@ -1,10 +1,12 @@
 package org.sid.services;
 
 import org.sid.dao.PiloteRepository;
+import org.sid.entities.Chasseur;
 import org.sid.entities.Pilote;
 import org.sid.exceptions.PiloteNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,4 +52,13 @@ public class PiloteServiceImpl implements PiloteService {
 		return (List<Pilote>) piloteRepository.findAll().stream().filter(pilote -> pilote.getDispo()).collect(Collectors.toList());
 	}
 
+	@Override
+	@Transactional
+	public Pilote affecterChasseur(Long piloteId, Chasseur chasseur) throws PiloteNotFoundException {
+		Pilote pilote = piloteRepository.findById(piloteId)
+				.orElseThrow(() -> new PiloteNotFoundException("No pilots with this id found"));
+
+		pilote.setChasseur(chasseur);
+		return pilote;
+	}
 }

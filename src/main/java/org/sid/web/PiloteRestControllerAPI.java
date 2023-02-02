@@ -52,4 +52,9 @@ public class PiloteRestControllerAPI {
     public Pilote get(@PathVariable("piloteId") Long piloteId) throws PiloteNotFoundException {
         return piloteService.getPilote(piloteId);
     }
+
+    @PutMapping("/affecter_chasseur/{piloteId}")
+    public Pilote affecterChasseur(@PathVariable("piloteId") Long piloteId, Chasseur chasseur) throws PiloteNotFoundException {
+        return piloteService.affecterChasseur(piloteId, chasseur);
+    }
 }
