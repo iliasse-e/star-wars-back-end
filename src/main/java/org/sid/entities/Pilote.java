@@ -1,65 +1,57 @@
 package org.sid.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import net.minidev.json.annotate.JsonIgnore;
 import org.sid.enums.Race;
 import org.sid.enums.Sante;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "pilote")
-public class Pilote extends Rebelle {
-    //------------------------------------------------------
-    // ATTRIBUTS
-    //------------------------------------------------------
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Pilote {
     @Id
-    @SequenceGenerator(name = "pilote_generator", sequenceName = "pilote_generator", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "pilote_generator")
-
-    @Column(name = "id_pilote")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private double heureDeVol;
-    private int nbMission;
-
+    private String nom;
+    private boolean enFormation = true;
     @Column(nullable = false)
-    private Sante sante;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_chasseur")
-    private Chasseur chasseur;
-
+    @Enumerated(EnumType.STRING)
+    private Race race;
+    private int age;
+    private double heureDeVol = 0;
+    private int nbMission = 0;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Sante sante = Sante.FORME;
+    @OneToOne
+    private Chasseur chasseur = null;
     @ManyToOne
-    @JoinColumn(name = "id_mission")
-    private Mission missionActuelle;
+    @JoinColumn(name="pilote_id")
+    @JsonBackReference
+    private Mission missionActuelle = null;
 
+    public Pilote(Long id, String nom, Race race, int age) {    };
 
-    //------------------------------------------------------
-    // CONSTRUCTEURS
-    //------------------------------------------------------
-
-    public Pilote() {
-        super();
-    }
-
-    public Pilote(String prenom, String nom, Race race, int age) {
-        super(prenom, nom, race, age);
-        setEnFormation(false);
-        this.heureDeVol = 0;
-        this.nbMission = 0;
-        this.sante = Sante.FORME;
-    }
-
-
-    //------------------------------------------------------
-    // METHODES
-    //------------------------------------------------------
-
-    public boolean getDispo() {
+    public boolean isMissionReady() {
         return (this.sante == Sante.FORME
-                && this.missionActuelle == null
-                && this.chasseur != null
-                && this.chasseur.getDispo());
+                && !isInMission()
+                && !this.enFormation
+                && hasChasseur());
+    }
+
+    public boolean hasChasseur() {
+        return chasseur != null;
+    }
+
+    public boolean isInMission() {
+        return missionActuelle != null;
     }
 
     public String getGrade() {
@@ -74,64 +66,5 @@ public class Pilote extends Rebelle {
             grade = "Capitaine";
         } else grade = "Commandant";
         return grade;
-    }
-
-    //------------------------------------------------------
-    // GETTER & SETTER
-    //------------------------------------------------------
-
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public double getHeureDeVol() {
-        return heureDeVol;
-    }
-
-    public void setHeureDeVol(double heureDeVol) {
-        this.heureDeVol = heureDeVol;
-    }
-
-    public int getNbMission() {
-        return nbMission;
-    }
-
-    public void setNbMission(int nbMission) {
-        this.nbMission = nbMission;
-    }
-
-    public Sante getSante() {
-        return sante;
-    }
-
-    public void setSante(Sante sante) {
-        this.sante = sante;
-    }
-
-    public Chasseur getChasseur() {
-        return chasseur;
-    }
-
-    public void setChasseur(Chasseur chasseur) {
-        this.chasseur = chasseur;
-    }
-
-    public void setChasseur() {
-        this.chasseur = null;
-    }
-
-    public Mission getMissionActuelle() {
-        return missionActuelle;
-    }
-
-    public void setMissionActuelle(Mission missionActuelle) {
-        this.missionActuelle = missionActuelle;
     }
 }

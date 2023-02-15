@@ -11,18 +11,11 @@ import java.util.List;
 public interface ChasseurService {
 
     List<Chasseur> listChasseurs();
-    List<Chasseur> getChasseurs();
     List<Chasseur> getChasseursDispo();
     List<Chasseur> getChasseursAvecPilotes();
-
     List<Chasseur> getChasseursPretPourMission();
-
-    void saveChasseur(Chasseur chasseur);
-
+    Chasseur createChasseur(Chasseur chasseur);
     boolean deleteChasseur(Long chasseurId) throws ChasseurNotFoundException;
-
-    @Transactional
     Chasseur updateChasseur(Long chasseurId, EtatChasseur etatChasseur, Pilote pilote) throws ChasseurNotFoundException;
 
-    // void addNewChasseur(Chasseur );
 }

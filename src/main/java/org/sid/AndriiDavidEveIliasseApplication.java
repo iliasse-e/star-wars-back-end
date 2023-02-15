@@ -2,23 +2,22 @@ package org.sid;
 
 import org.sid.dao.ChasseurRepository;
 import org.sid.dao.PiloteRepository;
-import org.sid.dao.RebelleRepository;
 import org.sid.entities.Chasseur;
-import org.sid.entities.Mission;
 import org.sid.entities.Pilote;
-import org.sid.entities.Rebelle;
 import org.sid.enums.EtatChasseur;
 import org.sid.enums.Race;
+import org.sid.enums.Sante;
 import org.sid.enums.TypeChasseur;
 import org.sid.services.MissionService;
 import org.sid.services.PiloteService;
-import org.sid.services.RebelleService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import java.util.List;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 public class AndriiDavidEveIliasseApplication {
@@ -33,60 +32,31 @@ public class AndriiDavidEveIliasseApplication {
         SpringApplication.run(AndriiDavidEveIliasseApplication.class, args);
     }
 
+    @Configuration
+    @EnableWebMvc
+    public class WebConfig implements WebMvcConfigurer {
 
+        @Override
+        public void addCorsMappings(CorsRegistry registry) {
+            registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
+        }
+    }
     @Bean
-    CommandLineRunner start(RebelleService rebelleService, ChasseurRepository chasseurRepository, MissionService missionService, PiloteService piloteService) {
+    CommandLineRunner start(ChasseurRepository chasseurRepository, MissionService missionService, PiloteService piloteService) {
         return args -> {
 
-            // missionService.saveMission(new Mission("maMission"));
-            // missionService.endMission(1L);
-            rebelleService.saveRebelle(new Rebelle("test", "test", Race.HUMAIN, 25));
-            piloteService.savePilote(new Pilote("test", "test", Race.HUMAIN, 28));
+/*
+            chasseurRepository.save(new Chasseur("Luke's Fighter", TypeChasseur.XWING, EtatChasseur.OPERATIONNEL));
+            chasseurRepository.save(new Chasseur("Red Five", TypeChasseur.XWING, EtatChasseur.OPERATIONNEL));
+            chasseurRepository.save(new Chasseur("Gold Squadron", TypeChasseur.YWING, EtatChasseur.OPERATIONNEL));
+            chasseurRepository.save(new Chasseur("T-70", TypeChasseur.XWING, EtatChasseur.MAINTENANCE));
 
-            Pilote pilote1 = new Pilote("Skywalker", "Luke", Race.HUMAIN, 23);
+            piloteService.createPilote(new Pilote(null, "Jean", Race.HUMAIN, 34));
+            //piloteService.createPilote(new Pilote(null, "Brrrktr", false, Race.KELDOR, 245, 200, 8, Sante.FORME, null, null));
+*/
 
-            Pilote pilote2 = new Pilote("Skywalker", "Enakin", Race.HUMAIN, 10);
-            Pilote pilote3 = new Pilote("Binks", "Jar Jar", Race.TOGRUTA, 18);
-
-            Chasseur chas1 = new Chasseur("Luke's Fighter", TypeChasseur.XWING, EtatChasseur.OPERATIONNEL);
-            Chasseur chas2 = new Chasseur("Red Five", TypeChasseur.XWING, EtatChasseur.OPERATIONNEL);
-            Chasseur chas3 = new Chasseur("Gold Squadron", TypeChasseur.YWING, EtatChasseur.DETRUIT);
-            Chasseur chas4 = new Chasseur("T-70", TypeChasseur.XWING, EtatChasseur.MAINTENANCE);
-
-            pilote2.setChasseur(chas2);
-            piloteService.savePilote(pilote2);
-
-            pilote3.setChasseur(chas4);
-            piloteService.savePilote(pilote3);
-
-            chasseurRepository.saveAll(List.of(chas1, chas2, chas3, chas4));
-            piloteService.savePilote(pilote1);
-            System.out.println(pilote1.getGrade());
-            pilote1.setHeureDeVol(500);
-            pilote1.setNbMission(2);
-            System.out.println(pilote1.getGrade());
-            pilote1.setHeureDeVol(1200);
-            pilote1.setNbMission(2);
-            System.out.println(pilote1.getGrade());
-            pilote1.setHeureDeVol(1400);
-            pilote1.setNbMission(3);
-            System.out.println(pilote1.getGrade());
-            pilote1.setHeureDeVol(3500);
-            pilote1.setNbMission(11);
-            System.out.println(pilote1.getGrade());
-            System.out.println(pilote1.getChasseur());
-            pilote1.setChasseur(chas1);
-            System.out.println(pilote1.getChasseur());
-            pilote1.setChasseur(chas2);
-            System.out.println(pilote1.getChasseur());
-            pilote1.setChasseur();
-            pilote1.setChasseur(chas1);
-            System.out.println(pilote1.getChasseur());
-            Mission mission = new Mission("test");
-            mission.addPilotes(pilote1);
-            mission.addPilotes(pilote2);
-            missionService.saveMission(mission, mission.getPilotes());
             System.out.println("Bonjour");
+
         };
     }
 }

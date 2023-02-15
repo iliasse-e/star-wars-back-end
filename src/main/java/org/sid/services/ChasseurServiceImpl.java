@@ -14,6 +14,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class ChasseurServiceImpl implements ChasseurService {
 
     private final ChasseurRepository chasseurRepository;
@@ -28,32 +29,26 @@ public class ChasseurServiceImpl implements ChasseurService {
     }
 
     @Override
-    public List<Chasseur> getChasseurs() {
-        return null;
-    }
-
-    @Override
     public List<Chasseur> getChasseursDispo() {
-        return (List<Chasseur>) chasseurRepository.findAll().stream().filter(chasseur -> chasseur.getDispo()).collect(Collectors.toList());
+        return chasseurRepository.findAll().stream().filter(chasseur -> chasseur.isAvailable()).collect(Collectors.toList());
     }
 
     @Override
     public List<Chasseur> getChasseursAvecPilotes() {
-        return (List<Chasseur>) chasseurRepository.findAll().stream().filter(chasseur -> chasseur.getPilote() != null).collect(Collectors.toList());
+        return chasseurRepository.findAll().stream().filter(chasseur -> chasseur.hasPilote()).collect(Collectors.toList());
     }
 
     public List<Chasseur> getChasseursPretPourMission() {
-        List<Chasseur> chasseursDispos = chasseurRepository.findAll().stream().filter(chasseur -> chasseur.getDispo()).collect(Collectors.toList());
-        return chasseursDispos.stream().filter(chasseur -> chasseur.getPilote() != null).collect(Collectors.toList());
+        return chasseurRepository.findAll().stream().filter(chasseur -> chasseur.isMissionReady()).collect(Collectors.toList());
     }
 
     @Override
-    public void saveChasseur(@NotNull Chasseur chasseur) {
+    public Chasseur createChasseur(@NotNull Chasseur chasseur) {
         Optional<Chasseur> chasseurOptional = chasseurRepository.findChasseurByName(chasseur.getName());
         if (chasseurOptional.isPresent()) {
             throw new IllegalStateException("Ship is already in the database");
         }
-        chasseurRepository.save(chasseur);
+        return chasseurRepository.save(chasseur);
     }
 
     @Override
@@ -66,7 +61,6 @@ public class ChasseurServiceImpl implements ChasseurService {
     }
 
     @Override
-    @Transactional
     public Chasseur updateChasseur(Long chasseurId, EtatChasseur etatChasseur, Pilote pilote) throws ChasseurNotFoundException {
         Chasseur chasseur = chasseurRepository.findById(chasseurId)
                 .orElseThrow(() -> new ChasseurNotFoundException("No ship with this id found"));
@@ -74,15 +68,10 @@ public class ChasseurServiceImpl implements ChasseurService {
         if (etatChasseur != null && chasseur.getEtatChasseur() != etatChasseur) {
             chasseur.setEtatChasseur(etatChasseur);
         }
-        if (pilote != null && !Objects.equals(chasseur.getPilote().getId(), pilote.getId())) {
-            chasseur.setPilote(pilote);
+        if (pilote != null && !Objects.equals(chasseur.getPiloteId(), pilote.getId())) {
+            chasseur.setPiloteId(pilote.getId());
         }
 
         return chasseur;
     }
-
-   /* @Override
-    public void addNewChasseur(Chasseur chasseur) {
-
-    } */
 }

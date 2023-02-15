@@ -1,19 +1,12 @@
 package org.sid.web;
 
-import java.util.Iterator;
-import java.util.List;
-
-import org.sid.dao.MissionRepository;
+import org.jetbrains.annotations.NotNull;
 import org.sid.entities.Mission;
-import org.sid.entities.Pilote;
-import org.sid.enums.EtatChasseur;
-import org.sid.exceptions.ChasseurNotFoundException;
 import org.sid.exceptions.MissionNotFoundException;
 import org.sid.services.MissionService;
+import org.sid.web.dto.MissionCreationRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @RestController
 @RequestMapping("/missions")
@@ -32,8 +25,9 @@ public class MissionRestControllerAPI {
 	}
 
 	@PostMapping
-	public Mission create(@RequestBody Mission mission, List<Pilote> pilotes) {
-		return missionService.saveMission(mission, pilotes);
+	public Mission create(@RequestBody @NotNull MissionCreationRequest payload) {
+		System.out.println(payload);
+		return missionService.createMission(payload.getName(), payload.getPilotesId());
 	}
 
 	@GetMapping
@@ -41,25 +35,21 @@ public class MissionRestControllerAPI {
 		return missionService.listMission();
 	}
 
-	@GetMapping("/missions/{id}")
+	@GetMapping("/{id}")
 	public Mission get(@PathVariable("id") Long missionId) throws MissionNotFoundException {
 		return missionService.getMission(missionId);
 	}
 
-	@DeleteMapping(path = "/missions/{missionId}")
+	@DeleteMapping(path = "/{missionId}")
 	public boolean deleteMisson(@PathVariable("missionId") Long missionId) throws MissionNotFoundException {
 		missionService.deleteMission(missionId);
 		return true;
 	}
 
-	@PutMapping(path = "/missions/rename/{missionsId}")
-	public Mission updateMission(@PathVariable("missionId") Long missionId, @RequestParam(required = false) String name) throws MissionNotFoundException {
-		return missionService.updateMission(missionId, name);
-	}
-
-	@PutMapping(path = "/missions/{missionsId}")
-	public Mission endMission(@PathVariable("missionId") Long missionId, int nbHeure) throws MissionNotFoundException {
+	@PutMapping(path = "/end-mission/{missionsId}/{nbHeure}")
+	public Mission endMission(@PathVariable("missionId") Long missionId, @PathVariable("nbHeure") int nbHeure) throws MissionNotFoundException {
 		return missionService.endMission(missionId, nbHeure);
 	}
 
 }
+

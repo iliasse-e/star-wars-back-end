@@ -1,13 +1,11 @@
 package org.sid.web;
 
-import org.sid.entities.Chasseur;
 import org.sid.entities.Pilote;
 import org.sid.enums.Sante;
 import org.sid.exceptions.ChasseurNotFoundException;
 import org.sid.exceptions.PiloteNotFoundException;
 import org.sid.exceptions.RebelleNotFoundException;
 import org.sid.services.PiloteService;
-import org.sid.services.RebelleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,52 +13,63 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/pilotes")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class PiloteRestControllerAPI {
     @Autowired
     private PiloteService piloteService;
-    private RebelleService rebelleService;
-
-    public PiloteService getPiloteService() {
-        return piloteService;
-    }
-
-    public void setPiloteService(PiloteService piloteService) {
-        this.piloteService = piloteService;
-    }
 
     @PostMapping
     public Pilote create(@RequestBody Pilote pilote) {
-        return piloteService.savePilote(pilote);
+        return piloteService.createPilote(pilote);
     }
 
     @GetMapping
-    public Iterable<Pilote> pilotes() {
+    public Iterable<Pilote> getPilotes() {
         return piloteService.listPilote();
     }
 
-    @DeleteMapping("/delete/{piloteId]")
-    public boolean deletePilote(@PathVariable("piloteId") Long piloteId) throws PiloteNotFoundException, RebelleNotFoundException {
-        rebelleService.deleteRebelle(piloteId);
+    @DeleteMapping("/delete/{piloteId}")
+    public boolean deletePilote(@PathVariable("piloteId") Long piloteId) throws PiloteNotFoundException {
+        piloteService.deletePilote(piloteId);
         return true;
     }
 
-    @GetMapping("/dispos")
-    public List<Pilote> getAllPilotesDispos() {
-        return piloteService.getPiloteDispo();
+    @GetMapping("/en-formation")
+    public List<Pilote> getPilotesEnFormation() {
+        return piloteService.getPilotesEnFormation();
     }
 
-    @GetMapping("/get/{piloteId}")
-    public Pilote get(@PathVariable("piloteId") Long piloteId) throws PiloteNotFoundException {
+    @GetMapping("/available")
+    public List<Pilote> getAllPilotesDispos() {
+        return piloteService.getPilotesDispo();
+    }
+
+    @GetMapping("/mission-ready")
+    public List<Pilote> getAllPilotesMissionReady() {
+        return piloteService.getPilotesMissionReady();
+    }
+
+    @GetMapping("/has-chasseur")
+    public List<Pilote> getAllPilotesHasChasseur() {
+        return piloteService.getPilotesHasChasseur();
+    }
+
+    @GetMapping("/search/{piloteId}")
+    public Pilote getPilote(@PathVariable("piloteId") Long piloteId) throws PiloteNotFoundException {
         return piloteService.getPilote(piloteId);
     }
 
-    @PutMapping("/affecter_chasseur/{piloteId}")
+    @PostMapping("end-formation/{piloteId}")
+    public boolean endFormation(@PathVariable("piloteId") Long piloteId) throws PiloteNotFoundException {
+        return piloteService.endFormation(piloteId);
+    }
+
+    @PutMapping("/affect-chasseur/{piloteId}")
     public Pilote affecterChasseur(@PathVariable("piloteId") Long piloteId, @RequestParam Long chasseurId) throws PiloteNotFoundException, ChasseurNotFoundException {
         return piloteService.affecterChasseur(piloteId, chasseurId);
     }
 
-    @PutMapping("/desaffecter_chasseur/{piloteId}")
+    @PutMapping("/desaffect-chasseur/{piloteId}")
     public Pilote desaffecterChasseur(@PathVariable("piloteId") Long piloteId) throws PiloteNotFoundException {
         return piloteService.desaffecterChasseur(piloteId);
     }

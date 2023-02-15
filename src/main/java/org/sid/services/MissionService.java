@@ -5,25 +5,16 @@ import java.util.List;
 import org.sid.entities.Mission;
 import org.sid.entities.Pilote;
 import org.sid.exceptions.MissionNotFoundException;
+import org.sid.exceptions.PiloteNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface MissionService {
-
-
-	Mission saveMission(Mission mission, List<Pilote> pilotes);
-
+	Mission createMission(String name, List<Long> pilotesId);
 	List<Mission> listMission();
 	Mission getMission(Long missionId) throws MissionNotFoundException;
+
+	Mission getMission(String missionName) throws MissionNotFoundException;
+
 	boolean deleteMission(Long missionId) throws MissionNotFoundException;
-
-	@Transactional
-	Mission updateMission(Long missionId) throws MissionNotFoundException;
-
-	// Mission addPilotes(List<Pilote> listPilotes);
-
-	@Transactional
-	Mission updateMission(Long missionId, String nom) throws MissionNotFoundException;
-
-	@Transactional
-	Mission endMission(Long missionId, int nbHeure) throws MissionNotFoundException;
+	Mission endMission(Long missionId, double nbHeure) throws MissionNotFoundException;
 }
