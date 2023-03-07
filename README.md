@@ -1,7 +1,8 @@
 # Application star war mission finale
 
 Cette application a été conçue par Andrii, David, Eve & Iliasse, dans une architectre microservice,
-L'application front a été programmé sur Angular
+L'application front a été programmé sur Angular :
+`https://github.com/iliasse-e/star-wars-front-end`
 
 ## Technologies :
 
