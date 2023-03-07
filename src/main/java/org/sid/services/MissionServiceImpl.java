@@ -44,6 +44,16 @@ public class MissionServiceImpl implements MissionService {
 	}
 
 	@Override
+	public List<Mission> listMissionCompleted() throws MissionNotFoundException {
+		return missionRepository.findByEstComplete(true);
+	}
+
+	@Override
+	public List<Mission> listMissionInProgress() throws MissionNotFoundException {
+		return missionRepository.findByEstComplete(false);
+	}
+
+	@Override
 	public Mission getMission(Long missionId) throws MissionNotFoundException {
 		Mission currentMission = missionRepository.findById(missionId)
 				.orElseThrow(() -> new MissionNotFoundException("Mission inconnue"));
@@ -66,9 +76,10 @@ public class MissionServiceImpl implements MissionService {
 
 	@Override
 	@Transactional
-	public Mission endMission(Long missionId, double nbHeure) throws MissionNotFoundException {
+	public Mission endMission(Long missionId, int nbHeure) throws MissionNotFoundException {
 		Mission currentMission = missionRepository.findById(missionId)
 				.orElseThrow(() -> new MissionNotFoundException("Mission inconnue"));
+		currentMission.setNbHeureMission(nbHeure);
 		currentMission.endMission();
 		currentMission.getPilotes().forEach(pilote -> {
 			piloteService.endMission(pilote.getId(), nbHeure);

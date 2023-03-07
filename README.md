@@ -1,16 +1,17 @@
 # Application star war mission finale
 
-Cette application a été conçue par Andrii, David, Eve & Iliasse
+Cette application a été conçue par Andrii, David, Eve & Iliasse, dans une architectre microservice,
+L'application front a été programmé sur Angular
 
 ## Technologies :
 
-JAVA (JDK 11), JEE, Spring web, Spring Data, JPA Hibernate, MariaBD (10.6.11)
+JAVA (JDK 17), JEE, Spring web, Spring Data, JPA Hibernate, MariaBD (10.6.11)
 
-IDE : Eclipse, IntelliJ
+IDE : IntelliJ
 
 ## Architecture :
 
-Modèle MVC, couche DAO, base de donnée (H2)
+Modèle MVC, couche DAO, couche service, et couche controller, base de donnée
 
 ## Etapes de la construction d'application
 
@@ -40,3 +41,7 @@ Exemple de méthodes : findAll, findOne, delete, save, findBy<<Property>>
 
 - Couche web permet de créer des services web. L'application va pouvoir communiquer via Rest API
 - Utilisation de Postman (pour manipuler les méthodes POST, GET, PUT, DELETE)
+
+### 5 - Création d'une partie de la couche DTO
+
+- Couche n'étant pas sensé être developpé sur ce projet, mais cela dit pour répondre à une contrainte, elle sera créé pour l'entitée Mission

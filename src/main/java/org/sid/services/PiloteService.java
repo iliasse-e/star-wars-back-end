@@ -25,7 +25,7 @@ public interface PiloteService {
 
     boolean endFormation(Long piloteId) throws PiloteNotFoundException;
     Pilote affecterChasseur(Long piloteId, Long chasseurId) throws PiloteNotFoundException, ChasseurNotFoundException;
-    Pilote desaffecterChasseur(Long piloteId) throws PiloteNotFoundException;
+    Pilote desaffecterChasseur(Long piloteId) throws PiloteNotFoundException, ChasseurNotFoundException;
     Pilote updatePilote(Long piloteId, double heures, Sante sante) throws PiloteNotFoundException;
     Pilote endMission(Long id, double heures);
 }

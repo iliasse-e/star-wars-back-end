@@ -70,7 +70,7 @@ public class PiloteRestControllerAPI {
     }
 
     @PutMapping("/desaffect-chasseur/{piloteId}")
-    public Pilote desaffecterChasseur(@PathVariable("piloteId") Long piloteId) throws PiloteNotFoundException {
+    public Pilote desaffecterChasseur(@PathVariable("piloteId") Long piloteId) throws PiloteNotFoundException, ChasseurNotFoundException {
         return piloteService.desaffecterChasseur(piloteId);
     }
 

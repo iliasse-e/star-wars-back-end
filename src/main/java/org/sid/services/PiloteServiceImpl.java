@@ -107,12 +107,12 @@ public class PiloteServiceImpl implements PiloteService {
 
 	@Override
 	@Transactional
-	public Pilote desaffecterChasseur(Long piloteId) throws PiloteNotFoundException {
+	public Pilote desaffecterChasseur(Long piloteId) throws PiloteNotFoundException, ChasseurNotFoundException {
 		Pilote pilote = piloteRepository.findById(piloteId)
 				.orElseThrow(() -> new PiloteNotFoundException("No pilots with this id found"));
 		Chasseur chasseur = chasseurRepository.findById(pilote.getChasseur().getPiloteId())
-				.orElseThrow(() -> new PiloteNotFoundException("No pilots with this id found"));
-		pilote.getChasseur().setPiloteId(null);
+				.orElseThrow(() -> new ChasseurNotFoundException("No chasseur with this id found"));
+		pilote.setChasseur(null);
 		chasseur.setPiloteId(null);
 		return pilote;
 	}

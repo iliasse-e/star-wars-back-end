@@ -31,12 +31,22 @@ public class MissionRestControllerAPI {
 	}
 
 	@GetMapping
-	public Iterable<Mission> missions() {
+	public Iterable<Mission> getMissions() {
 		return missionService.listMission();
 	}
 
+	@GetMapping("/completed")
+	public Iterable<Mission> getMissionsCompleted() throws MissionNotFoundException {
+		return missionService.listMissionCompleted();
+	}
+
+	@GetMapping("/in-progress")
+	public Iterable<Mission> getMissionsInProgress() throws MissionNotFoundException {
+		return missionService.listMissionInProgress();
+	}
+
 	@GetMapping("/{id}")
-	public Mission get(@PathVariable("id") Long missionId) throws MissionNotFoundException {
+	public Mission getMissionById(@PathVariable("id") Long missionId) throws MissionNotFoundException {
 		return missionService.getMission(missionId);
 	}
 
@@ -46,7 +56,7 @@ public class MissionRestControllerAPI {
 		return true;
 	}
 
-	@PutMapping(path = "/end-mission/{missionsId}/{nbHeure}")
+	@PutMapping(path = "/end-mission/{missionId}/{nbHeure}")
 	public Mission endMission(@PathVariable("missionId") Long missionId, @PathVariable("nbHeure") int nbHeure) throws MissionNotFoundException {
 		return missionService.endMission(missionId, nbHeure);
 	}

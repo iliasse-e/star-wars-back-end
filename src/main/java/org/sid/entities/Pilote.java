@@ -33,7 +33,7 @@ public class Pilote {
     @OneToOne
     private Chasseur chasseur = null;
     @ManyToOne
-    @JoinColumn(name="pilote_id")
+    @JoinColumn(name="mission_id")
     @JsonBackReference
     private Mission missionActuelle = null;
 
